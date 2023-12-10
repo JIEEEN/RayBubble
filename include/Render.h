@@ -14,7 +14,7 @@ class Render{
     public:
         void playerRender(Player&, Color);
         void backgroundRender(Color);
-        void mapRender(map_t&, const float, const uint8_t, const uint8_t);
+        void mapRender(map_t&, Config);
 };
 
 RB_NAMESPACE_END

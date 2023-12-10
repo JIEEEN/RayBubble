@@ -42,6 +42,8 @@ map_t& Map::getMap(const int& map_num) {
         case 2: return this->map2; break;
         default: break;
     }
+
+    return this->map1;
 }
 
 const float Map::getBlockSize() const{
