@@ -2,13 +2,13 @@
 
 RB_NAMESPACE_BEGIN
 
-Player::Player(): speed(0.05){
+Player::Player(): speed(0.05f){
     inst = { 10.0f, 10.0f, this->size, this->size };
 }
 Player::Player(float speed): speed(speed){
     inst = { 10.0f, 10.0f, this->size, this->size };
 }
-Player::Player(Pos pos): speed(0.05){
+Player::Player(Pos pos): speed(0.05f){
     inst = { pos.x, pos.y, this->size, this->size };
 }
 Player::Player(float speed, Pos pos): speed(speed){
@@ -22,6 +22,10 @@ float Player::getSpeed() const{
     return this->speed;
 }
 
+void Player::setPos(Pos pos){
+    this->inst.x = pos.x;
+    this->inst.y = pos.y;
+}
 void Player::updatePos(Pos pos){
     this->inst.x += pos.x;
     this->inst.y += pos.y;

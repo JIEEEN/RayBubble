@@ -25,6 +25,7 @@ class Player{
 
         void setSpeed(float speed);
         float getSpeed() const;
+        void setPos(Pos pos);
         void updatePos(Pos pos);
         Pos getPos() const;
         const float getSize() const;

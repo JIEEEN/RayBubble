@@ -13,11 +13,15 @@ class Map{
 
         map_t map1;
         map_t map2;
+
+        float block_size;
     public:
-        Map(): map_template(15, std::vector<uint8_t>(13, 0)){};
+        Map(): block_size(35.0f), map_template(15, std::vector<uint8_t>(13, 0)){};
+        Map(const float block_size): block_size(block_size), map_template(15, std::vector<uint8_t>(13, 0)){};
         ~Map(){};
         void mapInit();
-        map_t& getMap(const int& map_num) ;
+        map_t& getMap(const int& map_num);
+        const float getBlockSize() const;
 };
 
 RB_NAMESPACE_END

@@ -44,4 +44,8 @@ map_t& Map::getMap(const int& map_num) {
     }
 }
 
+const float Map::getBlockSize() const{
+    return this->block_size;
+}
+
 RB_NAMESPACE_END
