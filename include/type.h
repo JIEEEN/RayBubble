@@ -22,5 +22,6 @@ typedef struct
 } Config;
 
 using map_t = std::vector<std::vector<uint8_t>>;
+using mapidx_t = std::tuple<uint8_t, uint8_t>;
 
 #endif // __TYPE_H_

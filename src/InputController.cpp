@@ -17,7 +17,7 @@ void InputController::playerMove(
 {
     Pos pos = p.getPos();
 
-    const std::tuple<uint8_t, uint8_t> player_map_idx = realCenter2Index(pos, cfg);
+    const mapidx_t player_map_idx = realCenter2Index(pos, cfg);
 
     uint8_t player_map_idx_x = std::get<0>(player_map_idx);
     uint8_t player_map_idx_y = std::get<1>(player_map_idx);
@@ -25,28 +25,52 @@ void InputController::playerMove(
     if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W))
     {
         Pos LT_pos = getBoxPoint(0, p);
-        if(LT_pos.y <= cfg.map_start_pos_y)
+        Pos RT_pos = getBoxPoint(2, p);
+        mapidx_t lt_map_idx = realPoint2Index({LT_pos.x, LT_pos.y - 0.5f}, cfg);
+        mapidx_t rt_map_idx = realPoint2Index({RT_pos.x, RT_pos.y - 0.5f}, cfg);
+        if(LT_pos.y <= cfg.map_start_pos_y 
+            || map[std::get<1>(lt_map_idx)][std::get<0>(lt_map_idx)] > 0
+            || map[std::get<1>(rt_map_idx)][std::get<0>(rt_map_idx)] > 0
+        )
             return;
         p.updatePos({0.0f, -p.getSpeed()});
     }
     else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S))
     {
         Pos LB_pos = getBoxPoint(1, p);
-        if(LB_pos.y >= cfg.map_start_pos_y + cfg.map_block_size * 13) // 13 => block num of row
+        Pos RB_pos = getBoxPoint(3, p);
+        mapidx_t lb_map_idx = realPoint2Index({LB_pos.x, LB_pos.y + 0.5f}, cfg);
+        mapidx_t rb_map_idx = realPoint2Index({RB_pos.x, RB_pos.y + 0.5f}, cfg);
+        if(LB_pos.y >= cfg.map_start_pos_y + cfg.map_block_size * 13 
+            || map[std::get<1>(lb_map_idx)][std::get<0>(lb_map_idx)] > 0
+            || map[std::get<1>(rb_map_idx)][std::get<0>(rb_map_idx)] > 0
+        ) // 13 => block num of row
             return;
         p.updatePos({0.0f, +p.getSpeed()});
     }
     else if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
     {
         Pos RT_pos = getBoxPoint(2, p);
-        if(RT_pos.x >= cfg.map_start_pos_x + cfg.map_block_size * 15) // 15 => block num of column
+        Pos RB_pos = getBoxPoint(3, p);
+        mapidx_t rt_map_idx = realPoint2Index({RT_pos.x + 0.5f, RT_pos.y}, cfg);
+        mapidx_t rb_map_idx = realPoint2Index({RB_pos.x + 0.5f, RT_pos.y}, cfg);
+        if(RT_pos.x >= cfg.map_start_pos_x + cfg.map_block_size * 15 
+            || map[std::get<1>(rt_map_idx)][std::get<0>(rt_map_idx)] > 0
+            || map[std::get<1>(rb_map_idx)][std::get<0>(rb_map_idx)] > 0
+        ) // 15 => block num of column
             return;
         p.updatePos({+p.getSpeed(), 0.0f});
     }
     else if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
     {
         Pos LT_pos = getBoxPoint(0, p);
-        if(LT_pos.x <= cfg.map_start_pos_x)
+        Pos LB_pos = getBoxPoint(1, p);
+        mapidx_t lt_map_idx = realPoint2Index({LT_pos.x - 0.5f, LT_pos.y}, cfg);
+        mapidx_t lb_map_idx = realPoint2Index({LB_pos.x - 0.5f, LB_pos.y}, cfg);
+        if(LT_pos.x <= cfg.map_start_pos_x 
+            || map[std::get<1>(lt_map_idx)][std::get<0>(lt_map_idx)] > 0
+            || map[std::get<1>(lb_map_idx)][std::get<0>(lb_map_idx)] > 0
+        )
             return;
         p.updatePos({-p.getSpeed(), 0.0f});
     }

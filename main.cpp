@@ -22,11 +22,11 @@ int main(){
         30.0f, // player_size
         0.0f, // map_start_pos_x
         0.0f, // map_start_pos_y
-        10.0f, // p1_pos_x
-        10.0f, // p1_pos_y
-        10.0f, // p2_pos_x
-        10.0f // p2_pos_y
-    };
+        0.0f, // p1_pos_x
+        0.0f, // p1_pos_y
+        0.0f, // p2_pos_x
+        0.0f // p2_pos_y
+    }; 
 
     InitWindow(cfg.screen_width, cfg.screen_height, window_name);
 

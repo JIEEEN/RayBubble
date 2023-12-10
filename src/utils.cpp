@@ -44,7 +44,7 @@ const std::tuple<float, float> randomizePlayerPos(map_t &map, Config &cfg)
     return std::make_tuple(cfg.map_start_pos_x + (cfg.map_block_size) * static_cast<float>(rand_x), cfg.map_start_pos_y + (cfg.map_block_size) * static_cast<float>(rand_y));
 }
 
-const std::tuple<uint8_t, uint8_t> realCenter2Index(Pos pos, Config &cfg)
+const mapidx_t realCenter2Index(Pos pos, Config &cfg)
 {
     /**
      * @brief convert Real Pos to Map Index
@@ -58,6 +58,22 @@ const std::tuple<uint8_t, uint8_t> realCenter2Index(Pos pos, Config &cfg)
     real_y -= cfg.map_start_pos_y - cfg.player_size / 2;
 
     return std::make_tuple((uint8_t)(real_x / cfg.map_block_size), (uint8_t)(real_y / cfg.map_block_size));
+}
+
+
+const Pos index2Real(uint8_t idx_x, uint8_t idx_y, Config cfg)
+{
+    /**
+     * @brief convert Map Index to Real Pos (Center of Block)
+     */
+
+    float real_x = cfg.map_start_pos_x;
+    float real_y = cfg.map_start_pos_y;
+
+    real_x += static_cast<float>(idx_x) * cfg.map_block_size + (cfg.map_block_size / 2);
+    real_y += static_cast<float>(idx_y) * cfg.map_block_size + (cfg.map_block_size / 2);
+
+    return {real_x, real_y};
 }
 
 const Pos getBoxPoint(const uint8_t point_num, Player& p){
@@ -84,17 +100,15 @@ const Pos getBoxPoint(const uint8_t point_num, Player& p){
     return { 0.0f, 0.0f };
 }   
 
-const Pos index2Real(uint8_t idx_x, uint8_t idx_y, Config cfg)
-{
+const mapidx_t realPoint2Index(Pos pos, Config& cfg){
     /**
-     * @brief convert Map Index to Real Pos (Center of Block)
-     */
+     * @brief return where the Point is in the MapIndex
+    */
+    float real_x = pos.x - cfg.map_start_pos_x;
+    float real_y = pos.y - cfg.map_start_pos_y;
 
-    float real_x = cfg.map_start_pos_x;
-    float real_y = cfg.map_start_pos_y;
+    real_x = (real_x + cfg.map_block_size) / cfg.map_block_size - 1;
+    real_y = (real_y + cfg.map_block_size) / cfg.map_block_size - 1;
 
-    real_x += static_cast<float>(idx_x) * cfg.map_block_size + (cfg.map_block_size / 2);
-    real_y += static_cast<float>(idx_y) * cfg.map_block_size + (cfg.map_block_size / 2);
-
-    return {real_x, real_y};
+    return std::make_tuple(static_cast<uint8_t>(real_x), static_cast<uint8_t>(real_y));
 }
