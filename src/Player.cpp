@@ -44,7 +44,7 @@ Pos Player::getPos() const
 }
 Pos Player::getCenterPos() const
 {
-    return {this->inst.x + this->getSize() / 2, this->inst.y + this->getSize() / 2};
+    return {this->inst.x + (this->getSize() / 2), this->inst.y + (this->getSize() / 2)};
 }
 
 const float Player::getSize() const

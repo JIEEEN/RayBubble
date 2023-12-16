@@ -10,6 +10,13 @@ RB_NAMESPACE_BEGIN
 class Map
 {
 private:
+    /**
+     * map_data -> 
+     * 0: space, 
+     * 1: bubble,
+     * 2: removable box, 
+     * 3: unremovable box
+    */
     map_t map_template;
 
     map_t map1;

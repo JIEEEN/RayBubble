@@ -4,6 +4,7 @@
 #include <common.h>
 #include <namespace.h>
 #include <Player.h>
+#include <Render.h>
 #include <utils.h>
 #include <type.h>
 
@@ -13,7 +14,7 @@ RB_NAMESPACE_BEGIN
 
 class InputController
 {
-    // private:
+private:
 public:
     void keyInputProcess(Player &, map_t &, Config &);
     void playerMove(Player &, map_t &, Config &);

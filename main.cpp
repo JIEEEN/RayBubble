@@ -38,7 +38,7 @@ int main(){
     InputController ctr_input;
 
     ctr_map.mapInit();
-    map_t& _map = ctr_map.getMap(1);
+    map_t& _map = ctr_map.getMap(2);
 
     std::tuple<float, float> map_start_pos = getMapStartTuple(cfg);
     cfg.map_start_pos_x = std::get<0>(map_start_pos);
@@ -56,14 +56,22 @@ int main(){
             _map,
             cfg
         );
-
+ 
         BeginDrawing();
-            renderer.backgroundRender(BG_COLOR);
             renderer.mapRender(
                 _map, 
                 cfg
             );
+            renderer.backgroundRender(BG_COLOR);
             renderer.playerRender(_p1, P1_COLOR);
+
+            const mapidx_t bubble_map_idx = realCenter2Index(_p1.getPos(), cfg);
+            if(!_map[std::get<1>(bubble_map_idx)][std::get<0>(bubble_map_idx)] && IsKeyPressed(KEY_SPACE)){
+                _map[std::get<1>(bubble_map_idx)][std::get<0>(bubble_map_idx)] = 1; // apply bubble to map index
+
+                std::thread bubble_timer(std::bind(&Render::bubbleRenderErase, &renderer, std::ref(_map), bubble_map_idx)); // bubble eraser
+                bubble_timer.detach();
+            }
         EndDrawing();
     }
 

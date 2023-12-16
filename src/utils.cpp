@@ -47,7 +47,7 @@ const std::tuple<float, float> randomizePlayerPos(map_t &map, Config &cfg)
 const mapidx_t realCenter2Index(Pos pos, Config &cfg)
 {
     /**
-     * @brief convert Real Pos to Map Index
+     * @brief convert Real Center Pos to Map Index
      * @param block_size : Map Block Size
      */
 
@@ -57,7 +57,7 @@ const mapidx_t realCenter2Index(Pos pos, Config &cfg)
     real_x -= cfg.map_start_pos_x - cfg.player_size / 2;
     real_y -= cfg.map_start_pos_y - cfg.player_size / 2;
 
-    return std::make_tuple((uint8_t)(real_x / cfg.map_block_size), (uint8_t)(real_y / cfg.map_block_size));
+    return std::make_tuple(static_cast<uint8_t>(real_x / cfg.map_block_size), static_cast<uint8_t>(real_y / cfg.map_block_size));
 }
 
 

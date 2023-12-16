@@ -19,9 +19,6 @@ void InputController::playerMove(
 
     const mapidx_t player_map_idx = realCenter2Index(pos, cfg);
 
-    uint8_t player_map_idx_x = std::get<0>(player_map_idx);
-    uint8_t player_map_idx_y = std::get<1>(player_map_idx);
-
     if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W))
     {
         Pos LT_pos = getBoxPoint(0, p);
@@ -35,25 +32,25 @@ void InputController::playerMove(
             return;
         p.updatePos({0.0f, -p.getSpeed()});
     }
-    else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S))
+    if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S))
     {
         Pos LB_pos = getBoxPoint(1, p);
         Pos RB_pos = getBoxPoint(3, p);
         mapidx_t lb_map_idx = realPoint2Index({LB_pos.x, LB_pos.y + 0.5f}, cfg);
         mapidx_t rb_map_idx = realPoint2Index({RB_pos.x, RB_pos.y + 0.5f}, cfg);
-        if(LB_pos.y >= cfg.map_start_pos_y + cfg.map_block_size * 13 
+        if(LB_pos.y >= cfg.map_start_pos_y + cfg.map_block_size * 12.98
             || map[std::get<1>(lb_map_idx)][std::get<0>(lb_map_idx)] > 0
             || map[std::get<1>(rb_map_idx)][std::get<0>(rb_map_idx)] > 0
         ) // 13 => block num of row
             return;
         p.updatePos({0.0f, +p.getSpeed()});
     }
-    else if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
+    if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
     {
         Pos RT_pos = getBoxPoint(2, p);
         Pos RB_pos = getBoxPoint(3, p);
         mapidx_t rt_map_idx = realPoint2Index({RT_pos.x + 0.5f, RT_pos.y}, cfg);
-        mapidx_t rb_map_idx = realPoint2Index({RB_pos.x + 0.5f, RT_pos.y}, cfg);
+        mapidx_t rb_map_idx = realPoint2Index({RB_pos.x + 0.5f, RB_pos.y}, cfg);
         if(RT_pos.x >= cfg.map_start_pos_x + cfg.map_block_size * 15 
             || map[std::get<1>(rt_map_idx)][std::get<0>(rt_map_idx)] > 0
             || map[std::get<1>(rb_map_idx)][std::get<0>(rb_map_idx)] > 0
@@ -61,7 +58,7 @@ void InputController::playerMove(
             return;
         p.updatePos({+p.getSpeed(), 0.0f});
     }
-    else if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
+    if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
     {
         Pos LT_pos = getBoxPoint(0, p);
         Pos LB_pos = getBoxPoint(1, p);
@@ -75,5 +72,7 @@ void InputController::playerMove(
         p.updatePos({-p.getSpeed(), 0.0f});
     }
 }
+
+
 
 RB_NAMESPACE_END
