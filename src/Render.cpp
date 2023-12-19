@@ -34,6 +34,18 @@ void Render::mapRender(map_t &map, Config& cfg)
                 DrawRectangle(
                     cfg.map_start_pos_x + cfg.map_block_size * j, cfg.map_start_pos_y + cfg.map_block_size * i,
                     cfg.map_block_size, cfg.map_block_size, BROWN);
+                DrawRectangleLines(
+                    cfg.map_start_pos_x + cfg.map_block_size * j, cfg.map_start_pos_y + cfg.map_block_size * i,
+                    cfg.map_block_size, cfg.map_block_size, LIGHTGRAY);
+            }
+            else if (map[i][j] == 3)
+            {
+                DrawRectangle(
+                    cfg.map_start_pos_x + cfg.map_block_size * j, cfg.map_start_pos_y + cfg.map_block_size * i,
+                    cfg.map_block_size, cfg.map_block_size, DARKGRAY);
+                DrawRectangleLines(
+                    cfg.map_start_pos_x + cfg.map_block_size * j, cfg.map_start_pos_y + cfg.map_block_size * i,
+                    cfg.map_block_size, cfg.map_block_size, LIGHTGRAY);
             }
         }
     }
@@ -50,9 +62,10 @@ void Render::bubbleRender(const mapidx_t &map_pos, Config& cfg){
     );
 }
 
-void Render::bubbleRenderErase(map_t& map, const mapidx_t map_pos){
+void Render::bubbleRenderErase(Player& p, map_t& map, const mapidx_t map_pos){
     std::this_thread::sleep_for(std::chrono::seconds(3)); // bubble wait for 3 seconds ... 
     map[std::get<1>(map_pos)][std::get<0>(map_pos)] = 0;
+    p.setBubbleCount(p.getBubbleCount() + 1);
 }
 
 RB_NAMESPACE_END

@@ -17,7 +17,7 @@ public:
     void backgroundRender(Color);
     void mapRender(map_t &, Config &);
     void bubbleRender(const mapidx_t &, Config &);
-    void bubbleRenderErase(map_t &, const mapidx_t);
+    void bubbleRenderErase(Player&, map_t &, const mapidx_t);
 };
 
 RB_NAMESPACE_END

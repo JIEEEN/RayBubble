@@ -2,21 +2,17 @@
 
 RB_NAMESPACE_BEGIN
 
-Player::Player() : speed(0.05f)
+Player::Player() : speed(0.05f), bubble_power(1), bubble_count(1)
 {
     inst = {10.0f, 10.0f, this->size, this->size};
 }
-Player::Player(float speed) : speed(speed)
+Player::Player(Pos pos) : speed(0.05f), bubble_power(1), bubble_count(1)
+{
+    inst = {pos.x, pos.y, this->size, this->size};
+}
+Player::Player(float speed, uint8_t bubble_power, uint8_t bubble_count) : speed(speed), bubble_power(bubble_power), bubble_count(bubble_count)
 {
     inst = {10.0f, 10.0f, this->size, this->size};
-}
-Player::Player(Pos pos) : speed(0.05f)
-{
-    inst = {pos.x, pos.y, this->size, this->size};
-}
-Player::Player(float speed, Pos pos) : speed(speed)
-{
-    inst = {pos.x, pos.y, this->size, this->size};
 }
 
 void Player::setSpeed(float speed)
@@ -26,6 +22,24 @@ void Player::setSpeed(float speed)
 float Player::getSpeed() const
 {
     return this->speed;
+}
+
+void Player::setBubblePower(uint8_t bubble_power)
+{
+    this->bubble_power = bubble_power;
+}
+uint8_t Player::getBubblePower() const
+{
+    return this->bubble_power;
+}
+
+void Player::setBubbleCount(uint8_t bubble_count)
+{
+    this->bubble_count = bubble_count;
+}
+uint8_t Player::getBubbleCount() const
+{
+    return this->bubble_count;
 }
 
 void Player::setPos(Pos pos)

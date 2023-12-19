@@ -15,18 +15,23 @@ class Player
 private:
     const float size = 30.0f;
     float speed;
+    uint8_t bubble_power;
+    uint8_t bubble_count;
 
 public:
     Rectangle inst;
 
     Player();
-    Player(float speed);
     Player(Pos pos);
-    Player(float speed, Pos pos);
+    Player(float speed, uint8_t bubble_power, uint8_t bubble_count);
     ~Player(){};
 
-    void setSpeed(float speed);
+    void setSpeed(float);
     float getSpeed() const;
+    void setBubblePower(uint8_t);
+    uint8_t getBubblePower() const;
+    void setBubbleCount(uint8_t);
+    uint8_t getBubbleCount() const;
     void setPos(Pos pos);
     void updatePos(Pos pos);
     Pos getPos() const;

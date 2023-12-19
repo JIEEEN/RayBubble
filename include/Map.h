@@ -21,12 +21,13 @@ private:
 
     map_t map1;
     map_t map2;
+    map_t map3;
 
     float block_size;
 
 public:
-    Map() : block_size(35.0f), map_template(15, std::vector<uint8_t>(13, 0)){};
-    Map(const float block_size) : block_size(block_size), map_template(15, std::vector<uint8_t>(13, 0)){};
+    Map() : block_size(35.0f), map_template(15, std::vector<int16_t>(13, 0)){};
+    Map(const float block_size) : block_size(block_size), map_template(15, std::vector<int16_t>(13, 0)){};
     ~Map(){};
     void mapInit();
     map_t &getMap(const int &map_num);
